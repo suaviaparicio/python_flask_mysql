@@ -1,0 +1,41 @@
+ERRORES DE CONEXIÓN DE MYSQL 
+
+Utiliza el proyecto que hiciste en la pestaña anterior, ingresa al archivo mysqlconnection.py y genera tantos errores de PyMySQL como sea posible en veinte minutos. Intenta usar cadenas mal escritas, un nombre de usuario incorrecto, elimina valores, etc.
+
+Copia y pega esos errores en un archivo .txt y explica cómo llegaste a ese error
+
+1. NameError
+NameError: name 'MySQLConnection' is not defined
+---> Nombrando mal la clase MySQLConnection
+
+2. OperationalError
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+---> La contraseña de conexión, está errónea
+
+3. OperationalError
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'local' ([Errno 8] nodename nor servname provided, or not known)")
+---> Nombre del 'host' está incorrecto
+
+4. TypeError
+TypeError: MySQLConnection.query_db() missing 1 required positional argument: 'data'
+---> En la definición del método 'query_db', data debe ser por defecto, igual a None
+
+5. TypeError
+TypeError: 'bool' object is not iterable
+---> Dentro del método  'query_db' a la sentencia 'query = cursor.mogrify(query, data)' le falta el .mogrify
+
+6. TypeError
+TypeError: 'bool' object is not iterable
+---> Eliminé la sentencia 'executable = cursor.execute(query, data)' dentro del método 'query_db'
+
+7. Si elimino finally:
+                # close the connection
+                self.connection.close()
+---> No sale ningún error!
+
+8. ImportError
+ImportError: cannot import name 'connectToMySQL' from 'mysqlconnection' 
+---> Si eliminino la conexión 
+def connectToMySQL(db):
+    return MySQLConnection(db)
+
