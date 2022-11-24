@@ -4,6 +4,7 @@ from mysqlconnection import connectToMySQL
 
 
 class Friend:
+
     def __init__(self, data):
         self.id = data['id']
         self.first_name = data['first_name']
@@ -24,3 +25,11 @@ class Friend:
         for friend in results:
             friends.append(cls(friend))
         return friends
+
+    # método de clase para guardar a nuestro amigo en la base de datos
+    @classmethod
+    def save(cls, data ):
+        query = "INSERT INTO friends ( first_name , last_name , occupation , created_at, updated_at ) VALUES ( %(fname)s , %(lname)s , %(occ)s , NOW() , NOW() );"
+
+        # data es un diccionario que se pasará al método de guardar desde server.py
+        return connectToMySQL('primer_flask').query_db( query, data )
