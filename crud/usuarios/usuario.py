@@ -25,8 +25,33 @@ class Usuario:
         return lista_usuarios
 
     
-    @classmethod    #Este método es para guardar los datos que ingresa el usuario en el formulario
+    @classmethod    #Este método es para guardasr los datos que ingresa el usuario en el formulario
     def save(cls, data):
+        query = "INSERT INTO usuarios ( nombre, apellido, email, created_at) VALUES ( %(fnombre)s,%(lapellido)s,%(femail)s,NOW());"
+        result = connectToMySQL('usuarios_esquema').query_db(query, data)
+        return result
+    
+    @classmethod    #Este método es para borrar los datos que indicamos
+    def delete(cls, id):
+        query = "DELETE FROM usuarios WHERE ID=%(id)s;"
+        data = {
+            'id': id
+        }
+        result = connectToMySQL('usuarios_esquema').query_db(query, data)
+        return result
+    
+    @classmethod    #Este método es para mostrar los datos que indicamos
+    def show(cls, id):
+        query = "SELECT * FROM usuarios WHERE ID=%(id)s;"
+        data = {
+        'id': id
+        }
+        result = connectToMySQL('usuarios_esquema').query_db(query, data)
+        return result[0]
+
+
+    @classmethod 
+    def save_edit(cls, data):
         query = "INSERT INTO usuarios ( nombre, apellido, email, created_at) VALUES ( %(fnombre)s,%(lapellido)s,%(femail)s,NOW());"
         result = connectToMySQL('usuarios_esquema').query_db(query, data)
         return result
