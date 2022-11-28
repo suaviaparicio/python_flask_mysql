@@ -1,5 +1,5 @@
 
-from mysqlconnection import connectToMySQL
+from flask_app.config.mysqlconnection import connectToMySQL
 # modelar la clase después de la tabla friend de nuestra base de datos
 
 class Usuario:
