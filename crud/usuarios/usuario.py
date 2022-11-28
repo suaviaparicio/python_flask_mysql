@@ -34,24 +34,22 @@ class Usuario:
     @classmethod    #Este método es para borrar los datos que indicamos
     def delete(cls, id):
         query = "DELETE FROM usuarios WHERE ID=%(id)s;"
-        data = {
-            'id': id
-        }
-        result = connectToMySQL('usuarios_esquema').query_db(query, data)
+        result = connectToMySQL('usuarios_esquema').query_db(query, {'id': id})
         return result
     
     @classmethod    #Este método es para mostrar los datos que indicamos
     def show(cls, id):
         query = "SELECT * FROM usuarios WHERE ID=%(id)s;"
-        data = {
-        'id': id
-        }
-        result = connectToMySQL('usuarios_esquema').query_db(query, data)
+        result = connectToMySQL('usuarios_esquema').query_db(query, {'id': id})
         return result[0]
 
 
     @classmethod 
-    def save_edit(cls, data):
-        query = "INSERT INTO usuarios ( nombre, apellido, email, created_at) VALUES ( %(fnombre)s,%(lapellido)s,%(femail)s,NOW());"
-        result = connectToMySQL('usuarios_esquema').query_db(query, data)
-        return result
+    def save_edit(cls, data, id):
+        query = """UPDATE usuarios  
+                SET nombre=%(fnombre)s, apellido=%(lapellido)s, email=%(femail)s,created_at=NOW()
+                WHERE id = %(id)s;"""
+        data = data.to_dict()
+        data.update({'id': id})
+        connectToMySQL('usuarios_esquema').query_db(query, data)
+
