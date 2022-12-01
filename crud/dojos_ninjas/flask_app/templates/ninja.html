@@ -15,30 +15,29 @@
         <div class="nuevo_dojo" style="padding: 50px;">
             <h1 style="padding: 20px; text-align: center; ">Agregar un nuevo Ninja</h1>
             <div class="crear_dojo">
-                <form action="/dojo/crear" method="POST" class="col-4 mx-auto">
+                <form action="/ninja/crear" method="POST" class="col-4 mx-auto">
                     <div class="mb-3">
 
-
+                    <label for="nombre" class="form-label">Dojo:</label>
                         <select name="dojo_id" class="form-select" aria-label="Default select example" required>
-                            <option disabled selected value>Dojo</option>
+                            <option disabled selected value>Selecciona un Dojo</option>
                                 {% for dojo in dojos %}
                                     <option value="{{ dojo.id }}">{{ dojo.nombre }}</option>
                                 {% endfor %}
                         </select>
 
-
                     </div>
                     <div class="mb-3">
-                        <label for="fnombre" class="form-label">Nombre:</label>
-                        <input type="text" name="fnombre" class="form-control">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" name="nombre" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="lapellido" class="form-label">Apellido:</label>
-                        <input type="text" name="lapellido" class="form-control">
+                        <label for="apellido" class="form-label">Apellido:</label>
+                        <input type="text" name="apellido" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="lapellido" class="form-label">Edad:</label>
-                        <input type="number" name="fedad" class="form-control">
+                        <label for="edad" class="form-label">Edad:</label>
+                        <input type="number" name="edad" class="form-control" required min="18">
                     </div>
                     <button type="submit" class="btn btn-primary">Crear</button>
                 </form>
