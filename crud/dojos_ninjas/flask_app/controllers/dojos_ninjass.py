@@ -38,11 +38,13 @@ def agregar_ninja():
     return redirect('/ninjas')
 
 
+# Estos son todos los ninjas de un dojo en particular
 @app.route("/dojos/<int:id>")
 def mostrar_dojo(id):
     print(f"El dojo con ID {id} será mostrado")
-    ninjas = Ninjas.get(id)
-    dojos = Ninjas.get(id)
+    ninjas = Ninjas.get_from_dojo(id)
+    dojo = Dojos.obtener_uno(id)
+
     print(ninjas)
-    print(dojos)
-    return render_template('ninja_id.html', ninjas=ninjas, dojos=dojos)
+
+    return render_template('dojo_ninjas.html', ninjas=ninjas, dojo=dojo)

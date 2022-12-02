@@ -31,6 +31,22 @@ class Dojos:
             new_dojo = cls(result)
             dojos.append(new_dojo) # Esto es para crear los objetos que llegan en 'results' como diccionarios
         return dojos  # Lista de objetos
-        
+    
+    
+    @classmethod
+    def obtener_uno(cls, id):
+        query = """SELECT * FROM dojos
+                    WHERE id = %(id)s;"""
+        data = {
+            'id': id
+        }
+        results = connectToMySQL('esquema_dojos_y_ninjas').query_db(query, data) # Esto me devuelve un arreglo de diccionarios
+
+        dojos = [] #lista vacía parea ir agregando los dojos que se convertirán en OBJETOS. Este nombre es el que va a ir en el for loop del html
+
+        for result in results:
+            new_dojo = cls(result)
+            dojos.append(new_dojo) # Esto es para crear los objetos que llegan en 'results' como diccionarios
+        return dojos[0]  # Lista de objetos
 
 

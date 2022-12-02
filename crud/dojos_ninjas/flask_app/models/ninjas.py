@@ -40,13 +40,17 @@ class Ninjas:
 
 
     @classmethod
-    def get(cls, id):
+    def get_from_dojo(cls, id):
         query = """
         SELECT * FROM ninjas
-        JOIN dojos ON ninjas.dojo_id = dojos.id;
+        JOIN dojos ON ninjas.dojo_id = dojos.id
+        WHERE dojos.id = %(id)s;
         """
+        data = {
+            'id': id
+        }
 
-        results = connectToMySQL('esquema_dojos_y_ninjas').query_db(query)
+        results = connectToMySQL('esquema_dojos_y_ninjas').query_db(query, data)
 
         ninjas = []
         # import pdb; pdb.set_trace() # Esto hace una pausa para poder ver qué trae results
@@ -66,5 +70,5 @@ class Ninjas:
             
             ninjas.append(new_ninja)
 
-            return ninjas
+        return ninjas
 
