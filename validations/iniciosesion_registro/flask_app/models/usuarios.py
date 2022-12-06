@@ -1,6 +1,6 @@
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app import bcrypt
+
 
 class Usuario:
     def __init__(self, data):
@@ -74,34 +74,28 @@ class Usuario:
             'nombre': nombre,
             'apellido': apellido,
             'email': email,
-            'contraseña': bcrypt.generate_password_hash(contraseña)  # Se pasa la contraseña encriptada
+            'contraseña': contraseña  
         }
-        result = connectToMySQL('esquema_registro_usuarios').query_db(query, data)
-        return result
+        new_user_id = connectToMySQL('esquema_registro_usuarios').query_db(query, data) # Porque el query de insert, devuelve desde la BD el ID del usuario
+        
+        # Retornamos el ID del usuario recientemente creado
+        return new_user_id
 
 
     @classmethod
-    def get_with_credentials(cls, email, contraseña):
+    def get_with_credentials(cls, data): # ¿por qué nos e le pasa la data? ******************
         # 1. obtener el usuario
         query = """SELECT * FROM usuarios
                     WHERE email = %(email)s;"""
-        data = {
-            'email': email,
-        }
+        # data = {
+        #     'email': email,
+        #     'contraseña': contraseña
+        # }
         results = connectToMySQL('esquema_registro_usuarios').query_db(query, data)
 
         # Comprobar que el usuario exista
-        if len(results) == 0:
-            flash('El email no existe, o la contraseña es incorrecta') # Agregar el parámetro 'error' cuando implemente toast
-            return None
-
-        # Verificar que las contraseñas coincidan
-        encriptada = results[0]['contraseña']    # Coger la contraseña encriptada, para poder pasarla como argumento a continuación
-        if not bcrypt.check_password_hash(encriptada, contraseña):
-            flash('El email no existe, o la contraseña es incorrecta' )  # Agregar el parámetro 'error' cuando implemente toast
-            return None
+        if len(results) < 1:
+            return False
 
         # Si llegamos hasta este punto sin caer en un 'if', todo está bien
         return cls(results[0])  # Le estoy aplicando la clase Usuario, para que me devuelva un objeto del tipo Usuario
-
-

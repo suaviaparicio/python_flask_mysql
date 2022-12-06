@@ -54,6 +54,13 @@
             <div class="col-5 mx-auto border p-5 my-5 text-light bg-dark ">
                 <h3 class="text-center">Iniciar sesión</h3>
                 <form action="/login" method="post">
+                    {% with messages =  get_flashed_messages() %}   <!-- Declarar la variable 'messages' -->
+                        {% if messages %}                           <!-- Validar si existe algún mensaje' -->
+                            {% for message in messages %}           <!-- Iterar sobre los mensajes' -->
+                                <p>{{ message }}</p>                <!--  Mostrar cada mensaje en un <p> tag' -->
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Correo Electrónico:</label>
                         <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>

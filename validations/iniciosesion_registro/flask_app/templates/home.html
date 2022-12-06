@@ -13,11 +13,28 @@
 <body>
     <div class="container">
         <div class="d-flex flex-wrap justify-content-around">
-            <div class="col-5 mx-auto border p-5 my-5 text-light bg-dark ">
-                <h3 class="text-center">¡¡ Bienvenido XXX !!</h3>
-                <div class="logout">
-                    <button type="submit" class="btn btn-primary">Cerrar sesión</button>
-                </div>
+            <div class="col-5 mx-auto border p-5 my-5 text-light bg-dark" style="text-align: center;">
+                {% with messages =  get_flashed_messages() %}   <!-- Declarar la variable 'messages' -->
+                    {% if messages %}                           <!-- Validar si existe algún mensaje' -->
+                        {% for message in messages %}           <!-- Iterar sobre los mensajes' -->
+                            <p>{{ message }}</p>                <!--  Mostrar cada mensaje en un <p> tag' -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% if session.usuario %}
+                    <h3 class="text-center">¡¡ Bienvenid@ {{ session.usuario.nombre }} !!</h3>
+                {% endif %}
+
+                    <div class="logout">
+                        {% if not session.usuario %} <!-- Si el usuario no está en session... --> 
+                            <a href="/registrar" class="btn btn-primary" type="submit">Ingresar</a>
+                        {% else %}
+                            <div style="padding: 20px; text-align: center;">
+                                <a href="/logout" class="btn btn-primary" type="submit">Cerrar sesión</a>
+                            </div>
+                        {% endif  %}
+                        </div>
                 <!-- <form action="/login" method="post">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
