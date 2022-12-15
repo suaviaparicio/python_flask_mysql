@@ -1,0 +1,38 @@
+{% extends 'base.jinja' %}
+
+{% block styles %}
+<style>
+</style>
+{% endblock %}
+
+{% block main %}
+<h1 style="padding: 20px; text-align: center; margin-top: 50px; margin-bottom: 70px">¡Bienvenido {{user.first_name}} {{user.last_name}}!</h1>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+crossorigin="anonymous"></script>
+
+<div class="container">
+    <h3>Recetas Posteadas</h3>
+    <table class="table table-striped table-bordered p-5" style="margin-bottom: 100px; margin-top: 30px;">
+            <thead class=table-dark style="text-align: center;">
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Under</th>
+                <th scope="col">Posteada por</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                {% for recipe in all_recipes %}
+                    <tr>
+                        <td>{{recipe.name}}</td>
+                        <td>{{recipe.under}}</td>
+                        <td>{{recipe.user_name}} {{recipe.user_lastname}}</td>
+                        <td><a href="/recipes/{{recipe.id}}"> Ver Receta</a><a href="/recipes/edit/{{recipe.id}}"> | Editar</a><a href=""> | Eliminar</a></td>
+                    </tr> 
+                {% endfor %}
+            </tbody>
+    </table>
+        <a href="/addrecipe" type="submit" class="btn btn-primary"> + crear </a>
+    </div>
+{% endblock %}s
