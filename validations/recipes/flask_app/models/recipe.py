@@ -122,9 +122,7 @@ class Recipe:
             'recipe_id': recipe_id
         }
 
-        modified_recipe = connectToMySQL('recipes_scheme').query_db(query, data)
-
-        return modified_recipe
+        connectToMySQL('recipes_scheme').query_db(query, data)
 
 
     @classmethod
@@ -134,6 +132,4 @@ class Recipe:
         data = {
             'recipe_id': recipe_id
         }
-        results = connectToMySQL('recipes_scheme').query_db(query, data) 
-
-        return results[0] 
+        connectToMySQL('recipes_scheme').query_db(query, data) 

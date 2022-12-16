@@ -8,26 +8,26 @@
 {% block main %}
 <div class="container">
     <div class="d-flex flex-wrap justify-content-around" style="flex-direction: row-reverse;">
-        <a href="/editrecipe" style="margin: 20px;">Volver a Recetas</a>
+        <a href="/recipes" style="margin: 20px;">Volver a Recetas</a>
         <div class="col-5 mx-auto border p-5 my-5 text-light bg-dark">
             <h2 class="text-center">{{user.first_name}}, edita la receta seleccionada</h2>
             <p class="text-center"><i>Todos los campos son requeridos</i></p>
-            <form action="recipes/edit/{{recipe_id}}" method="post">
+            <form action="/editrecipe/{{recipe_for_edit.recipe_id}}" method="post">
                 <div class="mb-3">
                     <label for="name class="form-label>Nombre de la Receta:</label>
-                    <input name="name" type="text" class="form-control" aria-describedby="emailHelp" value="{{edit_recipe.name}}" required>
+                    <input name="name" type="text" class="form-control" aria-describedby="emailHelp" value="{{recipe_for_edit.name}}" required>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Descripción:</label>
-                    <textarea name="description" type="text" class="form-control"cols="30" rows="4" required >{{edit_recipe.description}}</textarea>
+                    <textarea name="description" type="text" class="form-control"cols="30" rows="4" required >{{recipe_for_edit.description}}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="instructions" class="form-label">Instrucciones</label>
-                    <textarea name="instructions" type="text" class="form-control" cols="30" rows="6" required >{{edit_recipe.instructions}}</textarea>
+                    <textarea name="instructions" type="text" class="form-control" cols="30" rows="6" required >{{recipe_for_edit.instructions}}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="date_made" class="form-label">La Receta fue hecha el:</label>
-                    <input type="date" class="form-control" aria-describedby="emailHelp" name="date_made" value="{{edit_recipe.date_made}}"required>
+                    <input type="date" class="form-control" aria-describedby="emailHelp" name="date_made" value="{{recipe_for_edit.date_made}}"required>
                 </div>
                 <div class="mb-3">
                     <label for="under" class="form-label">¿La Receta se hace en menos de 30 minutos?</label><br>

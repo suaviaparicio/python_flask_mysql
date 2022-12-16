@@ -26,9 +26,11 @@ crossorigin="anonymous"></script>
                 {% for recipe in all_recipes %}
                     <tr>
                         <td>{{recipe.name}}</td>
-                        <td>{{recipe.under}}</td>
+                        <td>{% if recipe.under == 1 %} Si
+                            {% else %} No
+                            {% endif %}</td>
                         <td>{{recipe.user_name}} {{recipe.user_lastname}}</td>
-                        <td><a href="/recipes/{{recipe.id}}"> Ver Receta</a><a href="/recipes/edit/{{recipe.id}}"> | Editar</a><a href=""> | Eliminar</a></td>
+                        <td><a href="/recipes/{{recipe.id}}"> Ver Receta</a><a href="/recipes/edit/{{recipe.id}}"> | Editar</a><a href="/recipes/delete/{{recipe.id}}"> | Eliminar</a></td>
                     </tr> 
                 {% endfor %}
             </tbody>
