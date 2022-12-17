@@ -30,11 +30,15 @@
                     <input type="date" class="form-control" aria-describedby="emailHelp" name="date_made" value="{{recipe_for_edit.date_made}}"required>
                 </div>
                 <div class="mb-3">
-                    <label for="under" class="form-label">¿La Receta se hace en menos de 30 minutos?</label><br>
-                    <input type="radio" id="yes" name="under" value="1" required>
+                    
+                    <label for="under" class="form-label" >¿La Receta se hace en menos de 30 minutos? </label><br>
+                    {% if recipe_for_edit.under == 1 %}
+                    <input type="radio" id="yes" name="under" value="1" checked="True" required>
                     <label for="yes">Yes</label><br>
-                    <input type="radio" id="no" name="under" value="0"required>
+                    {% else %}
+                    <input type="radio" id="no" name="under" value="0" checked="True" required>
                     <label for="no">No</label><br>
+                    {% endif %}
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar</button>
             </form>

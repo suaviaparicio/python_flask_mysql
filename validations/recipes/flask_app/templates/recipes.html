@@ -17,7 +17,7 @@ crossorigin="anonymous"></script>
             <thead class=table-dark style="text-align: center;">
                 <tr>
                 <th scope="col">Nombre</th>
-                <th scope="col">Under</th>
+                <th scope="col">En menos de 30 min</th>
                 <th scope="col">Posteada por</th>
                 <th scope="col">Acciones</th>
             </tr>
@@ -30,11 +30,17 @@ crossorigin="anonymous"></script>
                             {% else %} No
                             {% endif %}</td>
                         <td>{{recipe.user_name}} {{recipe.user_lastname}}</td>
-                        <td><a href="/recipes/{{recipe.id}}"> Ver Receta</a><a href="/recipes/edit/{{recipe.id}}"> | Editar</a><a href="/recipes/delete/{{recipe.id}}"> | Eliminar</a></td>
+
+                    
+                        <td><a href="/recipes/{{recipe.id}}"> Ver Receta</a>
+                        {% if recipe.user_id == user.id %}
+                            <a href="/recipes/edit/{{recipe.id}}"> | Editar</a>
+                            <a href="/recipes/delete/{{recipe.id}}"> | Eliminar</a></td>
+                        {% endif %}
                     </tr> 
                 {% endfor %}
             </tbody>
     </table>
         <a href="/addrecipe" type="submit" class="btn btn-primary"> + crear </a>
-    </div>
+</div>
 {% endblock %}s

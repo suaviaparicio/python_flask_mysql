@@ -64,21 +64,8 @@ class Recipe:
         return new_recipe
 
 
-    # @classmethod
-    # def get_all_recipes(cls):
-    #     query = "SELECT * FROM recipes;"
-    #     results = connectToMySQL('recipes_scheme').query_db(query)
-
-    #     recipes = []
-
-    #     for result in results:
-    #         recipe = cls(result)
-    #         recipes.append(recipe) 
-    #     return recipes 
-
-
     @classmethod
-    def get_recipes_for_registered_users(cls):
+    def get_recipes(cls):
         query = """SELECT recipes.id, recipes.name, recipes.under, users.id AS user_id, users.first_name AS user_name, users.last_name AS user_lastname
                     FROM recipes
                     JOIN users ON users.id = recipes.user_id;"""

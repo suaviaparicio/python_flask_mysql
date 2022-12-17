@@ -82,4 +82,4 @@ def post_change_password():
 @auth.route('/logout')
 def logout():
     session['user'] = None
-    return redirect('/auth')
+    return redirect('/')

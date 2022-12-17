@@ -8,11 +8,17 @@ recipes = Blueprint('recipes', __name__, template_folder='templates')
 
 
 @recipes.route('/')
-def home():
+def index():
     if session['user'] is not None:
         return redirect('/recipes')
-    recipes = Recipe.get_all_recipes()
-    return render_template('home.html', recipes=recipes)
+    all_recipes = Recipe.get_recipes()
+    return render_template('home.html', all_recipes=all_recipes)
+
+
+
+@recipes.route('/home')
+def home():
+    return redirect('/')
 
 
 
@@ -34,8 +40,9 @@ def add_recipe():
 @recipes.route('/recipes', methods=['GET'])
 @login_required
 def get_recipes_for_registered_users():
-    all_recipes = Recipe.get_recipes_for_registered_users() # all_recipes es como lo voy a llamar en el HTML cuando itere para renderizar la información
+    all_recipes = Recipe.get_recipes() # all_recipes es como lo voy a llamar en el HTML cuando itere para renderizar la información
     return render_template('recipes.html', all_recipes=all_recipes, user=session['user']) # Solo aca llamo la información del usuario desde la sesión
+
 
 
 @recipes.route('/recipes/<int:recipe_id>')
@@ -44,10 +51,12 @@ def view_recipe(recipe_id):
     return render_template('viewrecipe.html', recipe=recipe,  user=session['user'])
 
 
+
 @recipes.route('/recipes/edit/<int:recipe_id>', methods=['GET'])
 def preview_edit_recipe(recipe_id):
     recipe_for_edit = Recipe.get_recipe(recipe_id)
     return render_template('editrecipe.html', recipe_for_edit=recipe_for_edit,  user=session['user'])
+
 
 
 @recipes.route('/editrecipe/<int:recipe_id>', methods=['POST'])
@@ -62,11 +71,10 @@ def modified_recipe(recipe_id):
     return redirect('/recipes')
 
 
-@recipes.route('/recipes/delete/<int:recipe_id>')  # /<int:created_by>
-def delete_recipe(recipe_id): #created_by
-    # if not Recipe.validate_user_to_delete(created_by, session):
-        # return redirect('/travels')
-    Recipe.delete_recipe(recipe_id) # session['user']['id'], 
+
+@recipes.route('/recipes/delete/<int:recipe_id>') 
+def delete_recipe(recipe_id): 
+    Recipe.delete_recipe(recipe_id)
     return redirect('/recipes')
 
 
